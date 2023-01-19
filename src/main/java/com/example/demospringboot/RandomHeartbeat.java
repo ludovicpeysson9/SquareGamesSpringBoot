@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 public class RandomHeartbeat implements HeartbeatSensor{
 
     public int getHeartbeat(){
-
-        return 1;
+        int heartbeat = (int) (Math.random() * (300 - 40)) + 40;
+        return heartbeat;
     }
 
 }
