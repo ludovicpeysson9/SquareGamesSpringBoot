@@ -1,9 +1,10 @@
-package com.example.demospringboot;
+package com.example.demospringboot.controller;
 
+import com.example.demospringboot.model.GameCreated;
+import com.example.demospringboot.model.GameCreationParams;
+import com.example.demospringboot.GameService;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.GameStatus;
-import fr.le_campus_numerique.square_games.engine.Token;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;

@@ -1,4 +1,4 @@
-package com.example.demospringboot;
+package com.example.demospringboot.model;
 
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameStatus;

@@ -1,9 +1,10 @@
-package com.example.demospringboot;
+package com.example.demospringboot.service;
 
+import com.example.demospringboot.HeartbeatSensor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RandomHeartbeat implements HeartbeatSensor{
+public class RandomHeartbeat implements HeartbeatSensor {
 
     public int getHeartbeat(){
         int heartbeat = (int) (Math.random() * (230 - 40)) + 40;
