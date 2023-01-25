@@ -9,6 +9,8 @@ public class GameCreationParams {
     private int playerCount;
     private int boardSize;
 
+    private String langage;
+
     public String getGameType(){
         return gameType;
     }
@@ -18,5 +20,6 @@ public class GameCreationParams {
     public int getBoardSize(){
         return boardSize;
     }
+    public String getLangage(){ return langage; }
 
 }

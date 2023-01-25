@@ -38,6 +38,7 @@ public class GameController {
 
         game = gameService.getGame().get(id);
 
+//        return new GameDTO(game.getFactoryId(), id, game.getBoardSize(), game.getStatus(), game.getRemainingTokens());
         return new GameDTO(game.getFactoryId(), id, game.getBoardSize(), game.getStatus(), game.getRemainingTokens());
     }
 

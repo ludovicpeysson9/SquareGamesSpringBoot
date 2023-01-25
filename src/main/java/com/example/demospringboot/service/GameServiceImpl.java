@@ -1,6 +1,8 @@
 package com.example.demospringboot.service;
 
+import com.example.demospringboot.GamePlugin;
 import com.example.demospringboot.GameService;
+import com.example.demospringboot.TicTacToePlugin;
 import com.example.demospringboot.controller.GameDTO;
 import com.example.demospringboot.model.GameCreated;
 import com.example.demospringboot.model.GameCreationParams;
@@ -9,6 +11,7 @@ import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,24 +21,39 @@ import java.util.UUID;
 @Service
 public class GameServiceImpl implements GameService {
 
-    private GameFactory gameFactory;
+//    private GameFactory gameFactory;
+    @Autowired
+    private GamePlugin gamePlugin;
     private Game game;
     private UUID id;
     private Map<UUID, Game> games = new HashMap<>();
+//    public GameCreated createGameService(GameCreationParams params) {
     public GameCreated createGameService(GameCreationParams params) {
-        switch (params.getGameType()){
+//        switch (params.getGameType()){
 
-            case "tictactoe" : gameFactory = new TicTacToeGameFactory();
-                break;
+//            case "tictactoe" : gameFactory = new TicTacToeGameFactory();
+//                break;
+//
+//            case "taquin" : gameFactory = new TaquinGameFactory();
+//                break;
+//
+//            case "connectfour" : gameFactory = new ConnectFourGameFactory();
+//                break;
 
-            case "taquin" : gameFactory = new TaquinGameFactory();
-                break;
+//            case "tictactoe" : gamePlugin = new TicTacToePlugin();
+//                break;
 
-            case "connectfour" : gameFactory = new ConnectFourGameFactory();
-                break;
-        }
+//            case "taquin" : gamePlugin = new TaquinGameFactory();
+//                break;
+//
+//            case "connectfour" : gamePlugin = new ConnectFourGameFactory();
+//                break;
+//        }
+        int playerCount = gamePlugin.getPlayerCount();
+        int boardSize = gamePlugin.getBoardSize();
 
-        game = gameFactory.createGame(params.getPlayerCount(), params.getBoardSize());
+//        game = gameFactory.createGame(params.getPlayerCount(), params.getBoardSize());
+        game = gamePlugin.getGameFactory().createGame(playerCount, boardSize);
         id = UUID.randomUUID();
 
         games.put(id, game);
