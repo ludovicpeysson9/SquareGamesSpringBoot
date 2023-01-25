@@ -14,7 +14,9 @@ public interface GamePlugin {
 
     void setGameFactory(GameFactory gameFactory);
 
-    public int getPlayerCount();
+    int getPlayerCount();
 
-    public int getBoardSize();
+    int getBoardSize();
+
+    String getName();
 }

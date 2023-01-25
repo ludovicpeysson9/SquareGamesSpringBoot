@@ -12,9 +12,12 @@ import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFac
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,32 +26,24 @@ public class GameServiceImpl implements GameService {
 
 //    private GameFactory gameFactory;
     @Autowired
-    private GamePlugin gamePlugin;
+    private List<GamePlugin> gamePlugins;
     private Game game;
     private UUID id;
     private Map<UUID, Game> games = new HashMap<>();
 //    public GameCreated createGameService(GameCreationParams params) {
     public GameCreated createGameService(GameCreationParams params) {
-//        switch (params.getGameType()){
 
-//            case "tictactoe" : gameFactory = new TicTacToeGameFactory();
-//                break;
-//
-//            case "taquin" : gameFactory = new TaquinGameFactory();
-//                break;
-//
-//            case "connectfour" : gameFactory = new ConnectFourGameFactory();
-//                break;
+        GamePlugin gamePlugin = null;
 
-//            case "tictactoe" : gamePlugin = new TicTacToePlugin();
-//                break;
+        for(GamePlugin plugin : gamePlugins){
+            if(params.getGameType().equals(plugin.getGameFactory().getId())){
+                gamePlugin = plugin;
+            }
+        }
+        if(gamePlugin == null){
+            throw new RuntimeException();
+        }
 
-//            case "taquin" : gamePlugin = new TaquinGameFactory();
-//                break;
-//
-//            case "connectfour" : gamePlugin = new ConnectFourGameFactory();
-//                break;
-//        }
         int playerCount = gamePlugin.getPlayerCount();
         int boardSize = gamePlugin.getBoardSize();
 
