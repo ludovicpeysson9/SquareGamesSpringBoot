@@ -1,24 +1,13 @@
-package com.example.demospringboot;
+package com.example.demospringboot.service;
 
-import com.example.demospringboot.model.GameCreated;
+import com.example.demospringboot.interfaces.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.*;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
-
 @Component
-public class TicTacToePlugin implements GamePlugin{
+public class TicTacToePlugin implements GamePlugin {
 
     @Value("${tictactoe.playerCount}")
     private int playerCount;

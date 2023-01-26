@@ -1,19 +1,12 @@
 package com.example.demospringboot.service;
 
-import com.example.demospringboot.GamePlugin;
-import com.example.demospringboot.GameService;
-import com.example.demospringboot.TicTacToePlugin;
-import com.example.demospringboot.controller.GameDTO;
-import com.example.demospringboot.model.GameCreated;
-import com.example.demospringboot.model.GameCreationParams;
+import com.example.demospringboot.DAO.MemoryGameDao;
+import com.example.demospringboot.interfaces.GamePlugin;
+import com.example.demospringboot.interfaces.GameService;
+import com.example.demospringboot.models.GameCreated;
+import com.example.demospringboot.models.GameCreationParams;
 import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
-import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,11 +19,12 @@ public class GameServiceImpl implements GameService {
 
 //    private GameFactory gameFactory;
     @Autowired
-    private List<GamePlugin> gamePlugins;
+    private List<GamePlugin> gamePlugins; // Ajoute à la liste toutes les classes qui implementent GamePlugin
+    @Autowired
+    private MemoryGameDao memoryGameDao;
     private Game game;
-    private UUID id;
-    private Map<UUID, Game> games = new HashMap<>();
-//    public GameCreated createGameService(GameCreationParams params) {
+
+
     public GameCreated createGameService(GameCreationParams params) {
 
         GamePlugin gamePlugin = null;
@@ -47,17 +41,23 @@ public class GameServiceImpl implements GameService {
         int playerCount = gamePlugin.getPlayerCount();
         int boardSize = gamePlugin.getBoardSize();
 
-//        game = gameFactory.createGame(params.getPlayerCount(), params.getBoardSize());
         game = gamePlugin.getGameFactory().createGame(playerCount, boardSize);
-        id = UUID.randomUUID();
 
-        games.put(id, game);
+        UUID id = UUID.fromString(memoryGameDao.save(game));
 
-        return new GameCreated(id , game);
+        return new GameCreated(id, game);
     }
 
-    @Override
-    public Map<UUID, Game> getGame() {
-        return games;
+    public Game getGameService(UUID id){
+        game = memoryGameDao.getGame(id);
+        return game;
+    }
+    public void deleteGameService(UUID id) throws Exception {
+
+        if(memoryGameDao.getGamesId().containsKey(id)){
+            memoryGameDao.delete(id);
+        } else {
+            throw new Exception("Il n'y a aucun jeu avec cette id");
+        }
     }
 }

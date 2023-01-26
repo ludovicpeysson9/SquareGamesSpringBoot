@@ -1,14 +1,13 @@
-package com.example.demospringboot;
+package com.example.demospringboot.service;
 
+import com.example.demospringboot.interfaces.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaquinPlugin implements GamePlugin{
+public class TaquinPlugin implements GamePlugin {
 
     @Value("${taquin.playerCount}")
     private int playerCount;

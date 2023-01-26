@@ -1,7 +1,7 @@
 package com.example.demospringboot.controller;
 
-import com.example.demospringboot.GameCatalog;
-import com.example.demospringboot.HeartbeatSensor;
+import com.example.demospringboot.interfaces.GameCatalog;
+import com.example.demospringboot.interfaces.HeartbeatSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.example.demospringboot;
+package com.example.demospringboot.interfaces;
 
 public interface HeartbeatSensor {
 
