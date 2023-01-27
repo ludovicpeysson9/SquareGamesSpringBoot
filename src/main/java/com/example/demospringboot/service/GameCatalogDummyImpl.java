@@ -17,9 +17,9 @@ public class GameCatalogDummyImpl implements GameCatalog {
 
     public ArrayList<String> getGameId(){
         ArrayList <String> gameId = new ArrayList<>();
-        gameId.add(ticTacToeGameFactory.getId());
-        gameId.add(taquinGameFactory.getId());
-        gameId.add(connectFourGameFactory.getId());
+        gameId.add(ticTacToeGameFactory.getGameId());
+        gameId.add(taquinGameFactory.getGameId());
+        gameId.add(connectFourGameFactory.getGameId());
         return gameId;
     }
 

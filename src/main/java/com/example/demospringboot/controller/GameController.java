@@ -1,14 +1,17 @@
 package com.example.demospringboot.controller;
 
 import com.example.demospringboot.DAO.MemoryGameDao;
+import com.example.demospringboot.DAO.MySQLGameDAO;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
 import com.example.demospringboot.interfaces.GameService;
+import com.example.demospringboot.service.JDBCConnection;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,17 +27,29 @@ public class GameController {
 
     @Autowired
     private MemoryGameDao memoryGameDao;
+    @Autowired
+    private MySQLGameDAO mySQLGameDAO;
+    @Autowired JDBCConnection jdbcConnection;
 
     private UUID id;
 
     private Map <UUID, Game> games = new HashMap<>();
 
     @PostMapping("/games")
-    public GameDTO createGame(@RequestBody GameCreationParams params){
+    public GameDTO createGame(@RequestBody GameCreationParams params) throws SQLException {
 
         GameCreated gameCreated = gameService.createGameService(params);
         return new GameDTO(gameCreated.getGame().getFactoryId(), gameCreated.getId(), gameCreated.getGame().getBoardSize(), gameCreated.getGame().getStatus(), gameCreated.getGame().getRemainingTokens());
     }
+
+
+    // Test d'inscription BDD, adapter dans service
+
+//    @PostMapping("/games/test")
+//    public void testInsert() throws SQLException {
+//        gameService.testInsertJDBC();
+//    }
+
 
     @GetMapping("/games/{gameId}")
     public GameDTO getGame(@PathVariable(name = "gameId") UUID id) {
@@ -43,11 +58,22 @@ public class GameController {
         return new GameDTO(game.getFactoryId(), id, game.getBoardSize(), game.getStatus(), game.getRemainingTokens());
     }
 
+    @PutMapping("/games/{gameId}")
+    public void updateGame(@PathVariable(name = "gameId") UUID id){
+
+    }
+
     @DeleteMapping("/games/{gameId}")
-    public void deleteGame(@PathVariable(name = "gameId") UUID id) throws Exception {
+    public void deleteGame(@PathVariable(name = "gameId") UUID id) throws Exception{
 
         gameService.deleteGameService(id);
     }
+
+//    @GetMapping("/test")
+//    public void testConnexion() throws SQLException {
+//        JDBCConnection.getInstance().getConnection();
+//        System.out.println("m");
+//    }
 
     @GetMapping("/games")
     public void showMap(){
