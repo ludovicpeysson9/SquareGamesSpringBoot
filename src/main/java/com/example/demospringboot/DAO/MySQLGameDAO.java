@@ -5,6 +5,7 @@ import com.example.demospringboot.service.JDBCConnection;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
 import fr.le_campus_numerique.square_games.engine.Token;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -17,13 +18,14 @@ import java.util.UUID;
 public class MySQLGameDAO implements GameDAO {
 
 
+    @Autowired
+    JDBCConnection con;
     private String gameType;
 
     private int gameId;
     private GameStatus gameStatus;
     private UUID currentPlayerId;
     private Collection<Token> remainingTokens;
-    String saveAGameQuery = "INSERT INTO games (gameId, gameType, gameStatus, currentPlayerId) VALUES (gameId,?,?,?)";
 
 
 //    public MySQLGameDAO(String gameType, int gameId, GameStatus gameStatus, Collection<Token> remainingTokens) {
@@ -68,9 +70,10 @@ public class MySQLGameDAO implements GameDAO {
 
     public String save(Game game){
         UUID id = UUID.randomUUID();
-        return id.toString();
+        return null;
     }
-    public void saveAGame(JDBCConnection con, Game game) throws SQLException{
+    public void saveAGame(JDBCConnection con , Game game) throws SQLException{
+        String saveAGameQuery = "INSERT INTO games (gameId, gameType, gameStatus, currentPlayerId) VALUES (gameId,?,?,?)";
 
         try (PreparedStatement stmt = con.getConnection().prepareStatement(saveAGameQuery)){
             stmt.setString(1, game.getFactoryId());
