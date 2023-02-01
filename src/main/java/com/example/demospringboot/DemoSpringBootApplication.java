@@ -1,9 +1,11 @@
 package com.example.demospringboot;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
-import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class DemoSpringBootApplication {
@@ -13,5 +15,4 @@ public class DemoSpringBootApplication {
         SpringApplication.run(DemoSpringBootApplication.class, args);
         System.out.println("hello world!");
     }
-
 }

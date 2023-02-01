@@ -10,6 +10,8 @@ import com.example.demospringboot.interfaces.GameService;
 import com.example.demospringboot.service.JDBCConnection;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -37,6 +39,8 @@ public class GameController {
     @Autowired JDBCConnection jdbcConnection;
 //    @Autowired
 //    private JPADAORepository jpadaoRepository;
+
+    private static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 
     private UUID id;
 
