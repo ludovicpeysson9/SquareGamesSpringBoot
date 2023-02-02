@@ -7,6 +7,7 @@ import com.example.demospringboot.DAO.MySQLGameDAO;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
 import com.example.demospringboot.interfaces.GameService;
+import com.example.demospringboot.models.UserEntity;
 import com.example.demospringboot.service.JDBCConnection;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;

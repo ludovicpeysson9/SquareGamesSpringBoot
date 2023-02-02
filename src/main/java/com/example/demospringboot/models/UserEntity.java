@@ -6,8 +6,8 @@ import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 //import org.hibernate.annotations.Table;
 
 @Entity
@@ -18,30 +18,43 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userName;
+    private boolean accountNonExpired;
+
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+
+    private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<UserRoleEntity> userRoles = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Collection<String> userAuthorities;
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
-    public Collection<UserRoleEntity> getUserRoles() {
-        return userRoles;
-    }
+//    public Collection<UserRoleEntity> getUserRoles() {
+//        return userRoles;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection<? extends GrantedAuthority>) userRoles;
+        return userAuthorities.stream().map(s -> new GrantedAuthority() {
+            // parcours userAuthorities et transforme chaque élément en objet GrantedAuthority
+            @Override
+            public String getAuthority() {
+                return s;
+            }
+        }).collect(Collectors.toList());
+        //le .collect permet d'arrêter et de convertir le stream pour pouvoir le retourner
     }
 
     @Override
@@ -51,26 +64,39 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return accountNonLocked;
     }
+
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return credentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserAuthorities(Collection<String> userAuthorities) {
+        this.userAuthorities = userAuthorities;
     }
 }

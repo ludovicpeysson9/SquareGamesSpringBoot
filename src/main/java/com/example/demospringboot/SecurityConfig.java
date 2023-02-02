@@ -1,8 +1,10 @@
 package com.example.demospringboot;
 
+import com.example.demospringboot.service.JwtTokenAuthenticationFilter;
 import com.example.demospringboot.service.UserDetailsServiceImpl;
 import com.example.demospringboot.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,9 +27,12 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthenticationConfiguration authenticationConfiguration) {
+    private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
+
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthenticationConfiguration authenticationConfiguration, JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
         this.authenticationConfiguration = authenticationConfiguration;
+        this.jwtTokenAuthenticationFilter = jwtTokenAuthenticationFilter;
     }
 
 
@@ -61,8 +67,12 @@ public class SecurityConfig {
                 .and();
 
         http.authorizeHttpRequests()
-                .requestMatchers("/api/public/**").permitAll()
+//                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/games").permitAll()
                 .anyRequest().authenticated();
+
+//        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -71,6 +81,11 @@ public class SecurityConfig {
 
         final var authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
+
+        http.addFilterBefore(
+                jwtTokenAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
 
         return http.build();
     }

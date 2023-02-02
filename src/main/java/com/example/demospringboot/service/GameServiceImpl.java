@@ -10,6 +10,7 @@ import com.example.demospringboot.interfaces.GameService;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
 import com.example.demospringboot.models.GameEntity;
+import com.example.demospringboot.models.UserEntity;
 import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

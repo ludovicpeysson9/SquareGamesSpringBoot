@@ -1,0 +1,75 @@
+package com.example.demospringboot.service;
+
+import com.example.demospringboot.DAO.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.List;
+
+@Component
+public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
+
+    @Autowired
+    UserRepository userRepository;
+
+    private final String secret = "myownsecretsecuritytokensauce";
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        final String header = request.getHeader("Authorization");
+        if(header == null){
+            logger.debug("Pas d'entête authorization");
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if(!header.startsWith("Bearer")){
+            logger.debug("Pas d'entête authorization");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        final String token = header.split(" ")[1].trim();
+
+        final Claims claims =
+                Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
+                if(claims.getExpiration().before(new Date())){
+                    logger.debug("Token expiré");
+                    filterChain.doFilter(request, response);
+                    return;
+                };
+
+        final String username = claims.getSubject();
+
+        final UserDetails userDetails = userRepository.findByUsername(username);
+
+        final UsernamePasswordAuthenticationToken
+
+                authentication = new UsernamePasswordAuthenticationToken
+                (
+                    userDetails, null,
+                    userDetails == null ?
+                    List.of() : userDetails.getAuthorities()
+                );
+
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        filterChain.doFilter(request, response);
+    }
+}
