@@ -26,7 +26,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     UserRepository userRepository;
 
-    private final String secret = "myownsecretsecuritytokensauce";
+    private static final String secret = "myownsecretsecuritytokensauce";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -34,42 +34,40 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         final String header = request.getHeader("Authorization");
         if(header == null){
             logger.debug("Pas d'entête authorization");
-            filterChain.doFilter(request, response);
-            return;
+//            filterChain.doFilter(request, response);
+//            return;
         }
-        if(!header.startsWith("Bearer")){
+        else if(!header.startsWith("Bearer")){
             logger.debug("Pas d'entête authorization");
-            filterChain.doFilter(request, response);
-            return;
+//            filterChain.doFilter(request, response);
+//            return;
         }
 
-        final String token = header.split(" ")[1].trim();
+        if(header == null || !header.startsWith("Bearer")){
+            logger.debug("header null ou ne commence pas par bearer");
+        }else{
+            final String token = header.split(" ")[1].trim();
 
-        final Claims claims =
-                Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
-                if(claims.getExpiration().before(new Date())){
-                    logger.debug("Token expiré");
-                    filterChain.doFilter(request, response);
-                    return;
-                };
+            final Claims claims =
+                    Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
+            if(claims.getExpiration().before(new Date())){
+                logger.debug("Token expiré");
+//                filterChain.doFilter(request, response);
+//                return;
+            };
+            final String username = claims.getSubject();
+            final UserDetails userDetails = userRepository.findByUsername(username);
+            final UsernamePasswordAuthenticationToken
 
-        final String username = claims.getSubject();
-
-        final UserDetails userDetails = userRepository.findByUsername(username);
-
-        final UsernamePasswordAuthenticationToken
-
-                authentication = new UsernamePasswordAuthenticationToken
-                (
-                    userDetails, null,
-                    userDetails == null ?
-                    List.of() : userDetails.getAuthorities()
-                );
-
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                    authentication = new UsernamePasswordAuthenticationToken
+                    (
+                            userDetails, null,
+                            userDetails == null ?
+                                    List.of() : userDetails.getAuthorities()
+                    );
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(request, response);
     }
 }

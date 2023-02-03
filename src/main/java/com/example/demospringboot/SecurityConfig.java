@@ -40,7 +40,7 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager user(){
         return new InMemoryUserDetailsManager(
                 User.withUsername("ludo")
-                        .password("{helloworld}password")
+                        .password("password")
                         .authorities("read")
                         .build()
         );
@@ -68,11 +68,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
 //                .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/games").permitAll()
+                .requestMatchers("api/public").permitAll()
                 .anyRequest().authenticated();
-
-//        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -82,10 +79,7 @@ public class SecurityConfig {
         final var authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
 
-        http.addFilterBefore(
-                jwtTokenAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class
-        );
+        http.addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
