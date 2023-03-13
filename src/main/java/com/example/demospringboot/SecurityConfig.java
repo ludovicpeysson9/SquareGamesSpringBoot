@@ -65,8 +65,8 @@ public class SecurityConfig {
 //                .and();
 
         http.authorizeHttpRequests()
-//                .requestMatchers("/api/public/**").permitAll()
-                .anyRequest().authenticated();
+                .requestMatchers("/api/public/**").permitAll();
+//                .anyRequest().authenticated();
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);

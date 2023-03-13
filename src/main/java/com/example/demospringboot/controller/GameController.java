@@ -10,20 +10,20 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.SQLException;
 import java.util.*;
 
-@RestController
 @RequiredArgsConstructor
-@AllArgsConstructor
+@RestController
+@RequestMapping("/api/public")
 public class GameController {
-    private static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
+    public Logger LOGGER = LoggerFactory.getLogger(GameController.class);
     private Game game;
-    private GameService gameService;
+    private final GameService gameService;
     private MessageSource messageSource;
     private Map<UUID, Game> games = new HashMap<>();
 
@@ -51,9 +51,8 @@ public class GameController {
         gameService.deleteGame(id);
     }
 
-    @GetMapping("/api/public/games")
+    @GetMapping("/games")
     public List<GameEntity> getAll() {
-        System.out.println("ALO");
         LOGGER.info("SALUT JE PASSE LA");
         return gameService.getAll();
     }

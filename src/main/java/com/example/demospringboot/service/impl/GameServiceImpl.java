@@ -12,21 +12,22 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-@Service
 @RequiredArgsConstructor
-@AllArgsConstructor
+@Service
 public class GameServiceImpl implements GameService {
 
-    private final Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
     private List<GamePlugin> gamePlugins; // Ajoute à la liste toutes les classes qui implementent GamePlugin
     private MemoryGameDao memoryGameDao;
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
     private Game game;
     public GameCreated createGame(GameCreationParams params) {
 
@@ -72,7 +73,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<GameEntity> getAll() {
         List<GameEntity> games = gameRepository.findAll();
-        logger.info(games.toString());
+//        logger.info(games.toString());
         return games;
     }
 

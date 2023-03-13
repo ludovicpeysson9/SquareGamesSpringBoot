@@ -1,75 +1,56 @@
-2023-03-13T16:14:39.772+01:00  INFO 61719 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-13T16:14:39.774+01:00  INFO 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-13T16:14:39.775+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2023-03-13T16:14:39.775+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2023-03-13T16:14:39.775+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2023-03-13T16:14:39.776+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@11ec2b2f
-2023-03-13T16:14:39.776+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@356ab368
-2023-03-13T16:14:39.776+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2023-03-13T16:14:39.776+01:00  INFO 61719 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-03-13T16:14:39.791+01:00 DEBUG 61719 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
-2023-03-13T16:20:38.170+01:00  INFO 61719 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-13T16:20:38.171+01:00  INFO 61719 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-13T16:20:38.177+01:00  INFO 61719 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-03-13T16:20:41.979+01:00  INFO 62342 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-13T16:20:42.020+01:00  INFO 62342 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 2 JPA repository interfaces.
-2023-03-13T16:20:42.347+01:00  INFO 62342 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2023-03-13T16:20:42.354+01:00  INFO 62342 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-13T16:20:42.354+01:00  INFO 62342 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.4]
-2023-03-13T16:20:42.415+01:00  INFO 62342 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-13T16:20:42.416+01:00  INFO 62342 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 829 ms
-2023-03-13T16:20:42.469+01:00  INFO 62342 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-13T16:20:42.670+01:00  INFO 62342 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b033eac
-2023-03-13T16:20:42.671+01:00  INFO 62342 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-13T16:20:42.983+01:00  INFO 62342 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-03-13T16:20:43.490+01:00  INFO 62342 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-13T16:20:43.758+01:00  WARN 62342 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-13T16:20:43.886+01:00 DEBUG 62342 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 10 mappings in 'requestMappingHandlerMapping'
-2023-03-13T16:20:43.985+01:00 DEBUG 62342 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-13T16:20:43.990+01:00  INFO 62342 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65b7678a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7699e60a, org.springframework.security.web.context.SecurityContextHolderFilter@10bcbbed, org.springframework.security.web.header.HeaderWriterFilter@4e553d60, org.springframework.web.filter.CorsFilter@5bbc033f, org.springframework.security.web.authentication.logout.LogoutFilter@7f6a6d46, com.example.demospringboot.service.JwtTokenAuthenticationFilter@297454f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47e70f54, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@382608d0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@734a2c17, org.springframework.security.web.session.SessionManagementFilter@48ba37dc, org.springframework.security.web.access.ExceptionTranslationFilter@28b7646, org.springframework.security.web.access.intercept.AuthorizationFilter@7bbd0006]
-2023-03-13T16:20:44.050+01:00 DEBUG 62342 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-13T16:20:44.077+01:00 DEBUG 62342 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-13T16:20:44.171+01:00  INFO 62342 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-13T16:20:48.911+01:00  INFO 62342 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-13T16:20:48.912+01:00  INFO 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-13T16:20:48.912+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2023-03-13T16:20:48.912+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2023-03-13T16:20:48.912+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2023-03-13T16:20:48.913+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7ca8f5d7
-2023-03-13T16:20:48.913+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@2604940
-2023-03-13T16:20:48.913+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2023-03-13T16:20:48.913+01:00  INFO 62342 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2023-03-13T16:20:48.927+01:00 DEBUG 62342 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
-2023-03-13T16:22:25.124+01:00 DEBUG 62342 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
-2023-03-13T16:23:15.147+01:00  INFO 62342 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-13T16:23:15.149+01:00  INFO 62342 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-13T16:23:15.155+01:00  INFO 62342 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-03-13T16:23:19.043+01:00  INFO 62832 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-13T16:23:19.089+01:00  INFO 62832 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
-2023-03-13T16:23:19.433+01:00  INFO 62832 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2023-03-13T16:23:19.439+01:00  INFO 62832 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-13T16:23:19.439+01:00  INFO 62832 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.4]
-2023-03-13T16:23:19.481+01:00  INFO 62832 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-13T16:23:19.482+01:00  INFO 62832 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 834 ms
-2023-03-13T16:23:19.523+01:00  INFO 62832 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-13T16:23:19.714+01:00  INFO 62832 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@193eb1ba
-2023-03-13T16:23:19.715+01:00  INFO 62832 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-13T16:23:20.020+01:00  INFO 62832 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-03-13T16:23:20.538+01:00  INFO 62832 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-13T16:23:20.803+01:00  WARN 62832 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-13T16:23:20.903+01:00 DEBUG 62832 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 10 mappings in 'requestMappingHandlerMapping'
-2023-03-13T16:23:20.965+01:00 DEBUG 62832 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-13T16:23:20.968+01:00  INFO 62832 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4220468, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@727e61ed, org.springframework.security.web.context.SecurityContextHolderFilter@1e489957, org.springframework.security.web.header.HeaderWriterFilter@71ce19ee, org.springframework.web.filter.CorsFilter@3df681cc, org.springframework.security.web.authentication.logout.LogoutFilter@7bb3294c, com.example.demospringboot.service.JwtTokenAuthenticationFilter@32c08610, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5b827796, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4351d055, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ba815ee, org.springframework.security.web.session.SessionManagementFilter@7841c990, org.springframework.security.web.access.ExceptionTranslationFilter@78805df3, org.springframework.security.web.access.intercept.AuthorizationFilter@5354bfce]
-2023-03-13T16:23:21.002+01:00 DEBUG 62832 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-13T16:23:21.031+01:00 DEBUG 62832 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-13T16:23:21.119+01:00  INFO 62832 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-13T16:23:24.568+01:00  INFO 62832 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-13T16:23:24.568+01:00  INFO 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-13T16:23:24.569+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2023-03-13T16:23:24.569+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2023-03-13T16:23:24.569+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2023-03-13T16:23:24.570+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@11ec2b2f
-2023-03-13T16:23:24.571+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@356ab368
-2023-03-13T16:23:24.571+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2023-03-13T16:23:24.571+01:00  INFO 62832 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-03-13T16:23:24.591+01:00 DEBUG 62832 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:50:11.688+01:00  INFO 66993 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-13T16:50:11.690+01:00  INFO 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-13T16:50:11.690+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-03-13T16:50:11.690+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-03-13T16:50:11.690+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-03-13T16:50:11.691+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7e5c8c80
+2023-03-13T16:50:11.691+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@6de4071b
+2023-03-13T16:50:11.692+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-03-13T16:50:11.692+01:00  INFO 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-03-13T16:50:11.706+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:50:11.708+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:50:11.710+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/public/games", parameters={}
+2023-03-13T16:50:11.711+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:50:11.719+01:00  INFO 66993 --- [http-nio-8080-exec-1] c.e.d.controller.GameController          : SALUT JE PASSE LA
+2023-03-13T16:50:11.795+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, application/xml;q=0.9, */*;q=0.8] and supported [application/json, application/*+json]
+2023-03-13T16:50:11.796+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [[com.example.demospringboot.models.entity.GameEntity@5f3e01d4]]
+2023-03-13T16:50:11.826+01:00 DEBUG 66993 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-03-13T16:50:55.680+01:00  INFO 66993 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-13T16:50:55.682+01:00  INFO 66993 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-13T16:50:55.687+01:00  INFO 66993 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-03-13T16:51:00.138+01:00  INFO 67169 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-13T16:51:00.183+01:00  INFO 67169 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 2 JPA repository interfaces.
+2023-03-13T16:51:00.534+01:00  INFO 67169 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-13T16:51:00.540+01:00  INFO 67169 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-13T16:51:00.541+01:00  INFO 67169 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.4]
+2023-03-13T16:51:00.583+01:00  INFO 67169 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-13T16:51:00.583+01:00  INFO 67169 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 964 ms
+2023-03-13T16:51:00.623+01:00  INFO 67169 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-13T16:51:00.812+01:00  INFO 67169 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2be818da
+2023-03-13T16:51:00.813+01:00  INFO 67169 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-13T16:51:01.142+01:00  INFO 67169 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-03-13T16:51:01.680+01:00  INFO 67169 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-13T16:51:01.946+01:00  WARN 67169 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-13T16:51:02.037+01:00 DEBUG 67169 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 10 mappings in 'requestMappingHandlerMapping'
+2023-03-13T16:51:02.093+01:00 DEBUG 67169 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-03-13T16:51:02.121+01:00  INFO 67169 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7d65c0ac, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71c91121, org.springframework.security.web.context.SecurityContextHolderFilter@eea0b48, org.springframework.security.web.header.HeaderWriterFilter@5f1c406e, org.springframework.web.filter.CorsFilter@584f4ca5, org.springframework.security.web.authentication.logout.LogoutFilter@159408a7, com.example.demospringboot.service.JwtTokenAuthenticationFilter@3fdbb7ee, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d5d1204, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4f3e65f4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@568fd3de, org.springframework.security.web.session.SessionManagementFilter@65b69ccb, org.springframework.security.web.access.ExceptionTranslationFilter@444ebefd, org.springframework.security.web.access.intercept.AuthorizationFilter@1892865f]
+2023-03-13T16:51:02.158+01:00 DEBUG 67169 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-03-13T16:51:02.185+01:00 DEBUG 67169 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-03-13T16:51:02.250+01:00  INFO 67169 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-13T16:51:04.533+01:00  INFO 67169 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-13T16:51:04.534+01:00  INFO 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-13T16:51:04.534+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-03-13T16:51:04.534+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-03-13T16:51:04.534+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-03-13T16:51:04.535+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@442151d1
+2023-03-13T16:51:04.535+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@3e265811
+2023-03-13T16:51:04.535+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-03-13T16:51:04.535+01:00  INFO 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-13T16:51:04.549+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:51:04.551+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:51:04.553+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/public/games", parameters={}
+2023-03-13T16:51:04.554+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.demospringboot.controller.GameController#getAll()
+2023-03-13T16:51:04.563+01:00  INFO 67169 --- [http-nio-8080-exec-1] c.e.d.controller.GameController          : SALUT JE PASSE LA
+2023-03-13T16:51:04.640+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, application/xml;q=0.9, */*;q=0.8] and supported [application/json, application/*+json]
+2023-03-13T16:51:04.640+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [[com.example.demospringboot.models.entity.GameEntity@40900082]]
+2023-03-13T16:51:04.667+01:00 DEBUG 67169 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
