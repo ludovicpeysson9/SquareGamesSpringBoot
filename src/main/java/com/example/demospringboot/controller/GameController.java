@@ -1,19 +1,15 @@
 package com.example.demospringboot.controller;
 
-//import com.example.demospringboot.DAO.JPADAORepository;
-//import com.example.demospringboot.DAO.JPADao;
-import com.example.demospringboot.DAO.MemoryGameDao;
-import com.example.demospringboot.DAO.MySQLGameDAO;
 import com.example.demospringboot.models.dto.GameDTO;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
-import com.example.demospringboot.interfaces.GameService;
-import com.example.demospringboot.service.JDBCConnection;
+import com.example.demospringboot.models.entity.GameEntity;
+import com.example.demospringboot.service.GameService;
 import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -22,93 +18,43 @@ import java.sql.SQLException;
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class GameController {
-
-    private Game game;
-    private GameFactory gameFactory;
-
-    @Autowired
-    private GameService gameService;
-//    @Autowired
-
-    private Locale langue;
-
-    @Autowired
-    private MemoryGameDao memoryGameDao;
-    @Autowired
-    private MySQLGameDAO mySQLGameDAO;
-    @Autowired JDBCConnection jdbcConnection;
-//    @Autowired
-//    private JPADAORepository jpadaoRepository;
-
     private static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
-
-    private UUID id;
-
-    @Autowired
+    private Game game;
+    private GameService gameService;
     private MessageSource messageSource;
-    private Map <UUID, Game> games = new HashMap<>();
+    private Map<UUID, Game> games = new HashMap<>();
 
     @PostMapping("/games")
     public GameDTO createGame(
-//            @RequestHeader("Accept-Language") String langue,
-                              @RequestBody GameCreationParams params) throws SQLException {
-//        Locale locale = Locale.forLanguageTag(langue);
-//        ResourceBundle resourceBundle = ResourceBundle.getBundle("message", LocaleContextHolder.getLocale());
+            @RequestBody GameCreationParams params) throws SQLException {
         System.out.println(messageSource.getMessage("lancement_partie", null, LocaleContextHolder.getLocale()));
-        GameCreated gameCreated = gameService.createGameService(params);
-//        System.out.println(resourceBundle.getString("lancement_partie"));
+        GameCreated gameCreated = gameService.createGame(params);
         return new GameDTO(gameCreated.getGame().getFactoryId(), gameCreated.getId(), gameCreated.getGame().getBoardSize(), gameCreated.getGame().getStatus(), gameCreated.getGame().getRemainingTokens());
     }
 
-//    @PostMapping("/games")
-//    public @ResponseBody String addNewGame (@RequestParam String gameType, @RequestParam String gameStatus){
-//        JPADao j = new JPADao();
-//        j.getGameType(gameType);
-//        j.getGameStatus(gameStatus);
-//        JPADAORepository.save(j);
-//        return "Saved";
-//    }
-
-
-    // Test d'inscription BDD, adapter dans service
-
-//    @PostMapping("/games/test")
-//    public void testInsert() throws SQLException {
-//        gameService.testInsertJDBC();
-//    }
-
-
     @GetMapping("/games/{gameId}")
     public GameDTO getGame(@PathVariable(name = "gameId") UUID id) {
-
-        game = gameService.getGameService(id);
+        game = gameService.getGame(id);
         return new GameDTO(game.getFactoryId(), id, game.getBoardSize(), game.getStatus(), game.getRemainingTokens());
     }
 
     @PutMapping("/games/{gameId}")
-    public void updateGame(@PathVariable(name = "gameId") UUID id){
+    public void updateGame(@PathVariable(name = "gameId") UUID id) {
 
     }
 
     @DeleteMapping("/games/{gameId}")
-    public void deleteGame(@PathVariable(name = "gameId") UUID id) throws Exception{
-
-        gameService.deleteGameService(id);
+    public void deleteGame(@PathVariable(name = "gameId") UUID id) throws Exception {
+        gameService.deleteGame(id);
     }
 
-//    @GetMapping("/test")
-//    public void testConnexion() throws SQLException {
-//        JDBCConnection.getInstance().getConnection();
-//        System.out.println("m");
-//    }
-
-    @GetMapping("/games")
-    public void showMap(){
-
-        games = memoryGameDao.getGamesId();
-        for(Map.Entry m : games.entrySet()){
-            System.out.println(m);
-        }
+    @GetMapping("/api/public/games")
+    public List<GameEntity> getAll() {
+        System.out.println("ALO");
+        LOGGER.info("SALUT JE PASSE LA");
+        return gameService.getAll();
     }
 }
