@@ -1,31 +1,22 @@
-package com.example.demospringboot.models;
+package com.example.demospringboot.models.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "tokens")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TokenEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "tokenId")
     private Long id;
-
-
     private Integer posX;
     private Integer posY;
-
-//    @ManyToOne
-//    private GameEntity game ;
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
 }
