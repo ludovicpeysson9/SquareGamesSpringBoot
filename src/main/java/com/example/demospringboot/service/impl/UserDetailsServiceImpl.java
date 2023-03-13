@@ -1,6 +1,7 @@
-package com.example.demospringboot.service;
+package com.example.demospringboot.service.impl;
 
 import com.example.demospringboot.DAO.UserRepository;
+import com.example.demospringboot.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

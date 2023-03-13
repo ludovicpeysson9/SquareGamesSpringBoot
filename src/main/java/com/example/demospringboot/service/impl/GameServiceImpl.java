@@ -1,45 +1,34 @@
-package com.example.demospringboot.service;
+package com.example.demospringboot.service.impl;
 
 import com.example.demospringboot.DAO.GameRepository;
 import com.example.demospringboot.DAO.MemoryGameDao;
-import com.example.demospringboot.DAO.MySQLGameDAO;
-import com.example.demospringboot.DAO.MySQLGameDAOBis;
 import com.example.demospringboot.interfaces.GamePlugin;
-import com.example.demospringboot.interfaces.GameService;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
 import com.example.demospringboot.models.entity.GameEntity;
+import com.example.demospringboot.service.GameService;
 import fr.le_campus_numerique.square_games.engine.Game;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class GameServiceImpl implements GameService {
 
-    //    private GameFactory gameFactory;
-    @Autowired
+    private final Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
     private List<GamePlugin> gamePlugins; // Ajoute à la liste toutes les classes qui implementent GamePlugin
-    @Autowired
     private MemoryGameDao memoryGameDao;
-    @Autowired
     private GameRepository gameRepository;
-    @Autowired
-    private JDBCConnection con;
-    @Autowired
-    MySQLGameDAO mySQLGameDAO;
-
-
-//    @Qualifier("MySQLGameDAOBis")
-    @Autowired
-    MySQLGameDAOBis gameDAO;
     private Game game;
-
-
-    public GameCreated createGameService(GameCreationParams params) throws SQLException {
+    public GameCreated createGame(GameCreationParams params) {
 
         GamePlugin gamePlugin = null;
 
@@ -54,28 +43,23 @@ public class GameServiceImpl implements GameService {
 
         int playerCount = gamePlugin.getPlayerCount();
         int boardSize = gamePlugin.getBoardSize();
-
         game = gamePlugin.getGameFactory().createGame(playerCount, boardSize);
-
-//        mySQLGameDAO.saveAGame(con, game);
-        // gameDao.save(game);
         UUID id = UUID.fromString(memoryGameDao.save(game));
 
-        GameEntity gameEntity = new GameEntity(game.getFactoryId(), game.getStatus().toString(), 1);
+        GameEntity gameEntity = GameEntity.builder()
+                .gameStatus(game.getStatus().toString())
+                .gameType(game.getFactoryId())
+                .currentPlayerId(1).build();
         gameRepository.save(gameEntity);
-
         return new GameCreated(id, game);
     }
-//    public void testInsertJDBC() throws SQLException {
-//        mySQLGameDAO.saveAGame(con);
-//    }
 
-    public Game getGameService(UUID id) {
+    public Game getGame(UUID id) {
         game = memoryGameDao.getGame(id);
         return game;
     }
 
-    public void deleteGameService(UUID id) throws Exception {
+    public void deleteGame(UUID id) throws Exception {
 
         if (memoryGameDao.getGamesId().containsKey(id)) {
             memoryGameDao.delete(id);
@@ -83,6 +67,13 @@ public class GameServiceImpl implements GameService {
         } else {
             throw new Exception("Il n'y a aucun jeu avec cette id");
         }
+    }
+
+    @Override
+    public List<GameEntity> getAll() {
+        List<GameEntity> games = gameRepository.findAll();
+        logger.info(games.toString());
+        return games;
     }
 
 }

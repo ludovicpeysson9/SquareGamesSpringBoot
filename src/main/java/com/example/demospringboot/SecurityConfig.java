@@ -1,10 +1,8 @@
 package com.example.demospringboot;
 
 import com.example.demospringboot.service.JwtTokenAuthenticationFilter;
-import com.example.demospringboot.service.UserDetailsServiceImpl;
-import com.example.demospringboot.service.UserServiceImpl;
+import com.example.demospringboot.service.impl.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,21 +52,20 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and();
 
-        http = http
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, authException) -> {
-                            response.sendError(
-                                    HttpServletResponse.SC_UNAUTHORIZED,
-                                    authException.getMessage()
-                            );
-                        }
-                )
-                .and();
+//        http = http
+//                .exceptionHandling()
+//                .authenticationEntryPoint(
+//                        (request, response, authException) -> {
+//                            response.sendError(
+//                                    HttpServletResponse.SC_UNAUTHORIZED,
+//                                    authException.getMessage()
+//                            );
+//                        }
+//                )
+//                .and();
 
         http.authorizeHttpRequests()
 //                .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("api/public").permitAll()
                 .anyRequest().authenticated();
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
