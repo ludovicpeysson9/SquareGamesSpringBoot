@@ -1,7 +1,7 @@
 package com.example.demospringboot.service;
 
 import com.example.demospringboot.DAO.UserRepository;
-import com.example.demospringboot.models.UserEntity;
+import com.example.demospringboot.models.entity.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

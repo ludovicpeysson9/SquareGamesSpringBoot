@@ -4,22 +4,17 @@ import com.example.demospringboot.DAO.GameRepository;
 import com.example.demospringboot.DAO.MemoryGameDao;
 import com.example.demospringboot.DAO.MySQLGameDAO;
 import com.example.demospringboot.DAO.MySQLGameDAOBis;
-import com.example.demospringboot.interfaces.GameDAO;
 import com.example.demospringboot.interfaces.GamePlugin;
 import com.example.demospringboot.interfaces.GameService;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
-import com.example.demospringboot.models.GameEntity;
-import com.example.demospringboot.models.UserEntity;
+import com.example.demospringboot.models.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
