@@ -4,6 +4,8 @@ import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
 import com.example.demospringboot.models.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.Game;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
