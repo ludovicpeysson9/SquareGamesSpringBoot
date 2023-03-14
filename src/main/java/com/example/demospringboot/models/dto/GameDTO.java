@@ -14,9 +14,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class GameDTO {
-    public String factoryId;
-    public UUID id;
-    public int boardSize;
-    public GameStatus gameStatus;
-    public Collection<Token> remainingTokens;
+    private String factoryId;
+    private UUID id;
+    private int boardSize;
+    private GameStatus gameStatus;
+    private Collection<Token> remainingTokens;
 }

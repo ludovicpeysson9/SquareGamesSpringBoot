@@ -20,17 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/public")
 public class AuthentificationAPI {
 
     private final AuthenticationManager authenticationManager;
-//    private UserDTO userDTO;
-    private static final String secret = "myownsecretsecuritytokensauce";
+    private static final String SECRET = "myownsecretsecuritytokensauce";
 
-    private final Long tokenValidity = 3600 * 1000L;
+    private static final Long TOKEN_VALIDITY = 3600 * 1000L;
 
 
     public AuthentificationAPI(AuthenticationManager authenticationManager) {
@@ -51,10 +49,10 @@ public class AuthentificationAPI {
             final String token = Jwts.builder().setSubject(authenticate.getName())
                     .claim("authorities", authenticate.getAuthorities()
                             .stream().map(GrantedAuthority::getAuthority)
-                            .collect(Collectors.toList()))
+                            .toList())
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + tokenValidity))
-                    .signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
+                    .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
+                    .signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
 
             UserDTO userDTO = new UserDTO(user.getUsername(), token);
             return ResponseEntity.ok()
