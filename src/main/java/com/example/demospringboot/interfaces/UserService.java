@@ -1,7 +1,7 @@
 package com.example.demospringboot.interfaces;
 
-import com.example.demospringboot.models.UserEntity;
-import com.example.demospringboot.models.UserRoleEntity;
+import com.example.demospringboot.models.entity.UserEntity;
+import com.example.demospringboot.models.entity.UserRoleEntity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.demospringboot.service;
+package com.example.demospringboot.service.impl;
 
 import com.example.demospringboot.interfaces.GameCatalog;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
