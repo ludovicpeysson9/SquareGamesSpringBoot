@@ -1,9 +1,9 @@
 package com.example.demospringboot.interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface GameCatalog {
 
-    public ArrayList<String> getGameId();
+    public List<String> getGameId();
 
 }

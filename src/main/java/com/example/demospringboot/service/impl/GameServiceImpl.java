@@ -1,7 +1,7 @@
 package com.example.demospringboot.service.impl;
 
-import com.example.demospringboot.DAO.GameRepository;
-import com.example.demospringboot.DAO.MemoryGameDao;
+import com.example.demospringboot.dao.GameRepository;
+import com.example.demospringboot.dao.MemoryGameDao;
 import com.example.demospringboot.interfaces.GamePlugin;
 import com.example.demospringboot.models.GameCreated;
 import com.example.demospringboot.models.GameCreationParams;
@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,12 +23,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GameServiceImpl implements GameService {
 
-    private final Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameServiceImpl.class);
     private List<GamePlugin> gamePlugins; // Ajoute à la liste toutes les classes qui implementent GamePlugin
     private MemoryGameDao memoryGameDao;
     private GameRepository gameRepository;
     private Game game;
-    public GameCreated createGame(GameCreationParams params) {
+    public Optional<GameCreated> createGame(GameCreationParams params) {
 
         GamePlugin gamePlugin = null;
 
@@ -38,7 +38,8 @@ public class GameServiceImpl implements GameService {
             }
         }
         if (gamePlugin == null) {
-            throw new RuntimeException();
+            LOGGER.error("Plugin is null");
+            return Optional.empty();
         }
 
         int playerCount = gamePlugin.getPlayerCount();
@@ -51,7 +52,7 @@ public class GameServiceImpl implements GameService {
                 .gameType(game.getFactoryId())
                 .currentPlayerId(1).build();
         gameRepository.save(gameEntity);
-        return new GameCreated(id, game);
+        return Optional.of(new GameCreated(id, game));
     }
 
     public Game getGame(UUID id) {
@@ -59,20 +60,21 @@ public class GameServiceImpl implements GameService {
         return game;
     }
 
-    public void deleteGame(UUID id) throws Exception {
+    public void deleteGame(UUID id) {
 
         if (memoryGameDao.getGamesId().containsKey(id)) {
             memoryGameDao.delete(id);
-            System.out.println("Deleted");
+            LOGGER.info("Deleted");
         } else {
-            throw new Exception("Il n'y a aucun jeu avec cette id");
+            LOGGER.error("Il n'y a aucun jeu avec cette id");
         }
     }
 
     @Override
     public List<GameEntity> getAll() {
         List<GameEntity> games = gameRepository.findAll();
-        logger.info(games.toString());
+        if(LOGGER.isInfoEnabled())
+            LOGGER.info(games.toString());
         return games;
     }
 

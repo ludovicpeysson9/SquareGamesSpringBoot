@@ -21,7 +21,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class GameController {
-    private static Logger LOGGER = LoggerFactory.getLogger(GameController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
     private Game game;
     private GameService gameService;
     private MessageSource messageSource;
@@ -30,8 +30,15 @@ public class GameController {
     @PostMapping("/games")
     public GameDTO createGame(
             @RequestBody GameCreationParams params) throws SQLException {
-        System.out.println(messageSource.getMessage("lancement_partie", null, LocaleContextHolder.getLocale()));
-        GameCreated gameCreated = gameService.createGame(params);
+        LOGGER.info(messageSource.getMessage("lancement_partie", null, LocaleContextHolder.getLocale()));
+        GameCreated gameCreated;
+        try {
+            gameCreated = gameService.createGame(params).get();
+        }catch (NoSuchElementException noSuchElementException){
+            LOGGER.error("Erreur pendant la création de jeu");
+            return null;
+        }
+
         return new GameDTO(gameCreated.getGame().getFactoryId(), gameCreated.getId(), gameCreated.getGame().getBoardSize(), gameCreated.getGame().getStatus(), gameCreated.getGame().getRemainingTokens());
     }
 
@@ -43,7 +50,7 @@ public class GameController {
 
     @PutMapping("/games/{gameId}")
     public void updateGame(@PathVariable(name = "gameId") UUID id) {
-
+        // Not implemented
     }
 
     @DeleteMapping("/games/{gameId}")
@@ -53,8 +60,6 @@ public class GameController {
 
     @GetMapping("/api/public/games")
     public List<GameEntity> getAll() {
-        System.out.println("ALO");
-        LOGGER.info("SALUT JE PASSE LA");
         return gameService.getAll();
     }
 }

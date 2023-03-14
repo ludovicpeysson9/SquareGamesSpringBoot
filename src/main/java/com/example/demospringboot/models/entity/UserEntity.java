@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-//import org.hibernate.annotations.Table;
 
 @Entity
 @Table(name = "users")
@@ -36,13 +35,10 @@ public class UserEntity implements UserDetails {
     private Collection<String> userAuthorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userAuthorities.stream().map(s -> new GrantedAuthority() {
-            // parcours userAuthorities et transforme chaque élément en objet GrantedAuthority
-            @Override
-            public String getAuthority() {
-                return s;
-            }
-        }).collect(Collectors.toList());
+        // parcours userAuthorities et transforme chaque élément en objet GrantedAuthority
+        return userAuthorities.stream()
+                .map(s -> (GrantedAuthority) () -> s)
+                .toList();
         //le .collect permet d'arrêter et de convertir le stream pour pouvoir le retourner
     }
     @Override

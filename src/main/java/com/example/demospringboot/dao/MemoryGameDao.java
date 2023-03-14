@@ -1,4 +1,4 @@
-package com.example.demospringboot.DAO;
+package com.example.demospringboot.dao;
 
 import com.example.demospringboot.interfaces.GameDAO;
 import fr.le_campus_numerique.square_games.engine.Game;
@@ -11,24 +11,23 @@ import java.util.UUID;
 @Component
 public class MemoryGameDao implements GameDAO {
 
-    private Map<UUID, Game> games = new HashMap<>();
+    private static final Map<UUID, Game> GAME_HASH_MAP = new HashMap<>();
 
     public String save(Game game){
         UUID id = UUID.randomUUID();
-        games.put(id, game);
+        GAME_HASH_MAP.put(id, game);
         return id.toString();
     }
     public Game getGame(UUID id){
-//        Game game = games.get(id);
-        return games.get(id);
+        return GAME_HASH_MAP.get(id);
     }
-    public Map getGamesId(){
-        return games;
+    public Map<UUID,Game> getGamesId(){
+        return GAME_HASH_MAP;
     }
     public void update(Game game){
-
+        // Not implemented
     }
     public void delete(UUID id){
-        games.remove(id);
+        GAME_HASH_MAP.remove(id);
     }
 }

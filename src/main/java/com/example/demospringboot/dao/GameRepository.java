@@ -1,4 +1,4 @@
-package com.example.demospringboot.DAO;
+package com.example.demospringboot.dao;
 
 import com.example.demospringboot.models.entity.GameEntity;
 import org.springframework.data.repository.CrudRepository;

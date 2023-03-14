@@ -1,19 +1,19 @@
 package com.example.demospringboot;
 
-import org.springframework.boot.CommandLineRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
 
 @SpringBootApplication
 public class DemoSpringBootApplication {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DemoSpringBootApplication.class);
     public static void main(String[] args) {
 
 
         SpringApplication.run(DemoSpringBootApplication.class, args);
-        System.out.println("hello world!");
+        LOGGER.info("hello world!");
     }
 }
