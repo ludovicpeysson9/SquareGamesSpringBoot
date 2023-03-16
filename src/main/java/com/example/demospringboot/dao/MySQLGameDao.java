@@ -3,21 +3,34 @@ package com.example.demospringboot.dao;
 import com.example.demospringboot.interfaces.GameDAO;
 import com.example.demospringboot.service.JDBCConnection;
 import fr.le_campus_numerique.square_games.engine.Game;
-import lombok.RequiredArgsConstructor;
+import fr.le_campus_numerique.square_games.engine.GameStatus;
+import fr.le_campus_numerique.square_games.engine.Token;
+import lombok.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.UUID;
 
-@Component
+@Getter
+@Setter
 @RequiredArgsConstructor
-public class MySQLGameDAOBis implements GameDAO {
-    private final JDBCConnection con;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MySQLGameDAOBis.class);
-    @Override
+@Component
+public class MySQLGameDao implements GameDAO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MySQLGameDao.class);
+    private final JDBCConnection connection;
+    private String gameType;
+    private GameStatus gameStatus;
+    private UUID currentPlayerId;
+    private Collection<Token> remainingTokens;
     public String save(Game game){
+        return UUID.randomUUID().toString();
+    }
+    public void saveAGame(JDBCConnection con , Game game) throws SQLException{
         String saveAGameQuery = "INSERT INTO games (gameId, gameType, gameStatus, currentPlayerId) VALUES (gameId,?,?,?)";
 
         try (PreparedStatement stmt = con.getConnection().prepareStatement(saveAGameQuery)){
@@ -30,16 +43,12 @@ public class MySQLGameDAOBis implements GameDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
     }
 
-    @Override
-    public void update(Game game) {
+    public void update(Game game){
         // Not implemented
     }
-
-    @Override
-    public void delete(UUID id) {
+    public void delete(UUID id){
         // Not implemented
     }
 }
