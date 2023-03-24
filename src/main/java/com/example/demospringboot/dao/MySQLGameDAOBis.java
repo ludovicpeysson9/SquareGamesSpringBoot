@@ -28,7 +28,7 @@ public class MySQLGameDAOBis implements GameDAO {
             LOGGER.info("Record ok {}", i);
             con.getConnection().close();
         } catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return null;
     }
